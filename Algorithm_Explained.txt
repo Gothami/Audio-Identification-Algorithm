@@ -1,0 +1,14 @@
+Insertion Algorithm
+
+Variables Explained : 
+
+mp3File - The input to the system is a mp3 file.
+songID - When registering a song in the database unique ID will be generated for each song.
+int[] peaks - Frequency values which have maximum amplitudes selected from each frequency range will be added to this array. Size of this array will be six since six frequency ranges are chosen.
+List<int[]> peakList - Peaks selected from frequency ranges are stored in peaks array. This consecutive arrays will be added to this list to generate hashes. 
+int time - Time value is given for each hash. When a hash is generated time value is incremented and assigned to the hash.
+double[] pcm - Pulse Code Modulation data is kept in this array.
+String hash - Generated each hash
+TreeMap<String, SongInfo> hashMap - SongInfo Object consist of songID and the time value of a hash. Generated hash and respective songInfo object for the hash is added to hashMap treemap.
+
+
