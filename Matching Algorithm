@@ -1,0 +1,45 @@
+Inputs:
+  stream
+
+Initialize:
+  int songTimes[SONGCOUNT], double
+  regressionScores[SONGCOUNT], LinkedList<int[]>
+  slidingWindow
+
+while not isEnd(stream) do
+  buffer ← Decode(stream,512)
+  buffer ← Monophonic(buffer)
+  buffer ← HammingWindow(buffer)
+  realfft ← RealFFT(buffer)
+  peaks ← GetPeaks(realfft)
+  peakList.add(peaks)
+  if sizeOf(peakList) = 4 then
+    hash ← GenerateHash(peakList)
+    peakList.remove(0)
+    songInfoList ← QueryDB(hash)
+    Reset(songTimes)
+    if songInfoList is not Null then
+      for each songInfo in songInfoList do
+        songTimes[songIn f o.SongID] ← songInfo.Time
+      end for
+    end if
+    sidingWindow.Add(songTimes)
+    if sizeOf(slidingWindow) = MAXSLIDINGWINDSIZE then
+      slidingWindow.Remove(0)
+    end if
+    song ← 0
+    while song < SONGCOUNT do
+      matchesForSong ← SelectMatchesForSong(slidingWindow,song)
+      matchSet ← PickSameGapMatches(matchesForSong)
+      closestMatches ← PickClosetMatches(matchSet)
+      if SizeOf(closestMatches) > 10 then
+        score ← GetRegressionScore(closestMatches)
+        if score > regressionScores[song] then
+          regressionScores[song] ← score
+        end if
+      end if
+      song += 1
+    end while
+  end if
+end while
+return regressionScores
