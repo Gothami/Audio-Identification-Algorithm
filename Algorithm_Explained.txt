@@ -39,3 +39,37 @@ After all hashes are generated hashes will be added to the database.
 
 
 
+
+
+
+
+Matching Algorithm
+
+Variables Explained :
+
+stream - Broadcasted radio stream
+
+int songTimes[SONGCOUNT] - When a stream hash is matched with a hash in the ddatabase song, time values of the each hash is stores in this array.
+
+Method Explained : 
+
+As described in the insertion algorithm hashes are generated for the broadcasted stream.
+
+QueryDB() - For each generated hash, database is searched to find whether there are any match can be found for the generated hash. 
+
+If any match is match is found time value for the matched hash from the database is stored in the songTimes[] 
+
+SelectMatchesForSong() - select a given song id’s time array from the slidingWindow
+
+PickSameGapMatches() - filter only the matches that have the same gap in StreamTime and SongTime
+
+matchSet - set of (SongTime, StreamTime)
+
+PickClosetMatches() = Pick points which are closest to y = x (y = SongTIme, x = StreamTime)
+
+GetRegressionScore() - Get the regression score of the selected points.
+
+
+
+
+
