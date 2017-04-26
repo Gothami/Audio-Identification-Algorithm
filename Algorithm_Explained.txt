@@ -51,6 +51,10 @@ stream - Broadcasted radio stream
 
 int songTimes[SONGCOUNT] - When a stream hash is matched with a hash in the ddatabase song, time values of the each hash is stores in this array.
 
+double regressionScores[SONGCOUNT] - regression scores for songs are kept in this array.
+
+LinkedList<int[]> slidingWindow - Song matches are found using a sliding window. Data needs for this are kept in this list.
+
 Method Explained : 
 
 As described in the insertion algorithm hashes are generated for the broadcasted stream.
