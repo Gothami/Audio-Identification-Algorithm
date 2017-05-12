@@ -1,4 +1,4 @@
-Insertion Algorithm
+Insertion Algorithm - The purpose of this Algorithm is to efficiently insert a song to the database.
 
 Variables Explained : 
 
@@ -43,7 +43,7 @@ After all hashes are generated hashes will be added to the database.
 
 
 
-Matching Algorithm
+Matching Algorithm - The purpose of this Algorithm is to find songs which is being played in the radio stream. 
 
 Variables Explained :
 
