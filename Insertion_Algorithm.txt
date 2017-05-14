@@ -4,7 +4,7 @@
 		 int[] peaks, List<int[]> peakList, int time = 0, double[] pcm, String
 		 hash, TreeMap<String, SongInfo> hashMap
  3:	 pcm ← Decode(mp3File)
- 4:	 while not isEnd(mp3File) do
+ 4:	 while not isEnd(pcm) do
  5:		 buffer ← Decode(pcm,512)
  6:		 time += 1
  7:		 buffer ← Monophonic(buffer)
