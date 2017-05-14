@@ -70,22 +70,47 @@ Algorithm Logic Explained :
 
 	The matching algorithm takes one input. It is the broadcast stream from the radio. 
 	The following variables are initialized on matching.
+		songTimes, which is an integer array
+		regressionScores, which is a double array 
+		slidingWindow, a linked list containing integer arrays
 		
 
-	As described in the insertion algorithm above, the hashes are generated for the broadcasted stream first during the song matching or identification process.
+	As described in the insertion algorithm above, the hashes are generated for the broadcasted stream before the identification process. 		The hashes are generated same as in the insertion algorithm.
 
-	QueryDB() - For each generated hash, the database is searched to find whether there are any matches for the generated hash. 
+		Decode() - After decoding 512 wise samples will be added to buffers.
 
-	If a match is found, the time value for the matched hash from the database is stored in the songTimes[] array. 
+		Time value will be incremented for each each buffer.
 
-	SelectMatchesForSong() - select a given song id’s time array from the slidingWindow
+		Monophonic() - Buffer data will be converted into monophonic data if there are sterophonic data.
 
-	PickSameGapMatches() - filter only the matches that have the same gap in StreamTime and SongTime
+		HammingWindow() - Hamming Window is applied to the buffer.
 
-	matchSet - set of (SongTime, StreamTime)
+		RealFFT() - Time domain data will be converted into frequency domain data using Furior Transformation and here, Fast Furior 				    Transformation is used.
 
-	PickClosetMatches() = Pick points which are closest to y = x (y = SongTIme, x = StreamTime)
+		GetPeaks() - For each buffer, frequencies with highest magnitudes will be selected from six frequency ranges.
 
-	GetRegressionScore() - Get the regression score of the selected points.
+		GenerateHash() - Using frequencies of four consecutive buffers, one hash is generated.
+	
+	After hashes are generated,	
+
+	QueryDB() - For each generated hash, the database is searched to find whether there are any matches for the generated hash. If any 			    match is found the time and the songID will be added to songInfo object and that object will be added to songInfoList.
+
+	Reset() - If a match is found, the time value for the matched hash from the database is stored in the songTimes[] array. If there is no 		  match with a song, 0 will be added as the matching time.
+
+	For each songInfo object in songInfoList, time of the songInfo object is added to the index of the relavant songID in the songTimes 		array. If there is two matches for a song, only first match is taken since some parts are being played in a song more than once. This 		songTimes array is added to slidingWindow LinkedList. If size of the slidingWindow is greater than the given maximum sliding window 		size, integer array which is in the 0th index is removed. 
+
+	song variable is initialized to 0.
+
+		SelectMatchesForSong() - select a given song id’s time array from the slidingWindow
+
+		PickSameGapMatches() - filter only the matches that have the same gap in StreamTime and SongTime
+
+		matchSet - set of (SongTime, StreamTime)
+
+		PickClosetMatches() = Pick points which are closest to y = x (y = SongTIme, x = StreamTime)
+
+		GetRegressionScore() - Get the regression score of the selected points.
+
+	After returning regression scores select songs which has regression score greater than the given threshold value. 
 
 

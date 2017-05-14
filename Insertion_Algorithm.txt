@@ -1,11 +1,9 @@
  1:	 Inputs:
 		 mp3File,songID
  2:	 Initialize:
-		 int[] peaks, List<int[]> peakList, int time = 0, double[] pcm, String
-		 hash, TreeMap<String, SongInfo> hashMap
- 3:	 pcm ← Decode(mp3File)
- 4:	 while not isEnd(pcm) do
- 5:		 buffer ← Decode(pcm,512)
+		 int[] peaks, List<int[]> peakList, int time = 0, String hash, TreeMap<String, SongInfo> hashMap:	 
+ 4:	 while not isEnd(mp3File) do
+ 5:		 buffer ← Decode(mp3File,512)
  6:		 time += 1
  7:		 buffer ← Monophonic(buffer)
  8:		 buffer ← HammingWindow(buffer)
