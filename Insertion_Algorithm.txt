@@ -5,7 +5,7 @@
 		 hash, TreeMap<String, SongInfo> hashMap
  3:	 pcm ← Decode(mp3File)
  4:	 while not isEnd(mp3File) do
- 5:		 buffer ← Decode(stream,512)
+ 5:		 buffer ← Decode(pcm,512)
  6:		 time += 1
  7:		 buffer ← Monophonic(buffer)
  8:		 buffer ← HammingWindow(buffer)
