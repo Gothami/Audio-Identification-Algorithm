@@ -1,4 +1,4 @@
-Song Registration Algorithm - 
+### Song Registration Algorithm - 
 _____________________
 
 	The purpose of this Algorithm is to efficiently insert a song to the database.
@@ -54,7 +54,7 @@ Algorithm Logic Explained :
 
 _________________________________________________________________________________________________________________________________________________________________________________________________
 
-Matching Algorithm -
+### Matching Algorithm -
 ____________________ 
 
 	The purpose of this algorithm is to find songs which is being played in the radio stream. 
