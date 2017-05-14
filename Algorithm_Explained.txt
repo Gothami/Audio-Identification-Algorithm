@@ -31,17 +31,20 @@ Algorithm Logic Explained :
 		pcm, a double array
 		hash, kept as a string and a 
 		hashMap whose purpose are explained above under the section titled "Variables Explained".
-	After initializing, we decode the MP3 File into pcm data. Then until the end of this decoded MP3 File of the song that we are inserting to the system, the following
-	process is repeated.
+	After initializing, we decode the MP3 File into pcm data. Then until the end of this decoded MP3 File of the song that we 	  are inserting to the system, the following process is repeated.
 	
 		Decode() - After decoding 512 wise samples will be added to buffers.
 
 		Time value will be incremented for each each buffer.
 
 		Monophonic() - Buffer data will be converted into monophonic data if there are sterophonic data.
+		
 		HammingWindow() - Hamming Window is applied to the buffer.
-		RealFFT() - Time domain data will be converted into frequency domain data using Furior Transformation and here, Fast Furior Transformation is used.
+		
+		RealFFT() - Time domain data will be converted into frequency domain data using Furior Transformation and here, 			    Fast Furior Transformation is used.
+		
 		GetPeaks() - For each buffer, frequencies with highest magnitudes will be selected from six frequency ranges.
+		
 		GenerateHash() - Using frequencies of four consecutive buffers, one hash is generated.
 
 		Then the generated hash and the SongInfo object which consists of songID and time will be added to the hashMap.
@@ -60,11 +63,11 @@ Variables Explained :
 
 	stream - Broadcasted radio stream
 
-	int songTimes[SONGCOUNT] - When a stream hash is matched with a hash in the database song, time values of each hash is stored in this array.
+	int songTimes[SONGCOUNT] - When a stream hash is matched with a hash in the database song, time values of each hash is 					   stored in this array.
 
 	double regressionScores[SONGCOUNT] - regression scores for songs are kept in this array.
 
-	LinkedList<int[]> slidingWindow - Song matches are found using a sliding window. Data needed for this purpose are kept in this list.
+	LinkedList<int[]> slidingWindow - Song matches are found using a sliding window. Data needed for this purpose are kept in 					    this list.
 
 Algorithm Logic Explained :
 
@@ -72,10 +75,9 @@ Algorithm Logic Explained :
 	The following variables are initialized on matching.
 		songTimes, which is an integer array
 		regressionScores, which is a double array 
-		slidingWindow, a linked list containing integer arrays
-		
+		slidingWindow, a linked list containing integer arrays		
 
-	As described in the insertion algorithm above, the hashes are generated for the broadcasted stream before the identification process. 		The hashes are generated same as in the insertion algorithm.
+	As described in the insertion algorithm above, the hashes are generated for the broadcasted stream before the 			identification process. The hashes are generated same as in the insertion algorithm.
 
 		Decode() - After decoding 512 wise samples will be added to buffers.
 
@@ -85,7 +87,7 @@ Algorithm Logic Explained :
 
 		HammingWindow() - Hamming Window is applied to the buffer.
 
-		RealFFT() - Time domain data will be converted into frequency domain data using Furior Transformation and here, Fast Furior 				    Transformation is used.
+		RealFFT() - Time domain data will be converted into frequency domain data using Furior Transformation and here, 			    Fast Furior Transformation is used.
 
 		GetPeaks() - For each buffer, frequencies with highest magnitudes will be selected from six frequency ranges.
 
@@ -93,11 +95,11 @@ Algorithm Logic Explained :
 	
 	After hashes are generated,	
 
-	QueryDB() - For each generated hash, the database is searched to find whether there are any matches for the generated hash. If any 			    match is found the time and the songID will be added to songInfo object and that object will be added to songInfoList.
+	QueryDB() - For each generated hash, the database is searched to find whether there are any matches for the generated 			    hash. If any match is found the time and the songID will be added to songInfo object and that object will be 		     added to songInfoList.
 
-	Reset() - If a match is found, the time value for the matched hash from the database is stored in the songTimes[] array. If there is no 		  match with a song, 0 will be added as the matching time.
+	Reset() - If a match is found, the time value for the matched hash from the database is stored in the songTimes[] array. 		   If there is no match with a song, 0 will be added as the matching time.
 
-	For each songInfo object in songInfoList, time of the songInfo object is added to the index of the relavant songID in the songTimes 		array. If there is two matches for a song, only first match is taken since some parts are being played in a song more than once. This 		songTimes array is added to slidingWindow LinkedList. If size of the slidingWindow is greater than the given maximum sliding window 		size, integer array which is in the 0th index is removed. 
+	For each songInfo object in songInfoList, time of the songInfo object is added to the index of the relavant songID in the 	  songTimes array. If there is two matches for a song, only first match is taken since some parts are being played in a 	song more than once. This songTimes array is added to slidingWindow LinkedList. If size of the slidingWindow is greater 	than the given maximum sliding window size, integer array which is in the 0th index is removed. 
 
 	song variable is initialized to 0.
 
