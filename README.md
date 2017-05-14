@@ -3,7 +3,7 @@ _____________________
 
 	The purpose of this Algorithm is to efficiently insert a song to the database.
 
-variables explained : 
+Variables Explained : 
 
 	mp3File - The input to the system is a mp3 file.
 
