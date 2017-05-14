@@ -1,77 +1,74 @@
 Insertion Algorithm - The purpose of this Algorithm is to efficiently insert a song to the database.
 
-Variables Explained : 
+variables explained : 
 
-mp3File - The input to the system is a mp3 file.
+	mp3File - The input to the system is a mp3 file.
 
-songID - When registering a song in the database unique ID will be generated for each song.
+	songID - When registering a song in the database unique ID will be generated for each song.
 
-int[] peaks - Frequency values which have maximum amplitudes selected from each frequency range will be added to this array. Size of this array will be six since six frequency ranges are chosen.
+	int[] peaks - Frequency values which have maximum amplitudes selected from each frequency range will be added to this array. Size of this array will be six since six frequency ranges are chosen.
 
-List<int[]> peakList - Peaks selected from frequency ranges are stored in peaks array. This consecutive arrays will be added to this list to generate hashes. 
+	List<int[]> peakList - Peaks selected from frequency ranges are stored in peaks array. This consecutive arrays will be added to this list to generate hashes. 
 
-int time - Time value is given for each hash. When a hash is generated time value is incremented and assigned to the hash.
+	int time - Time value is given for each hash. When a hash is generated time value is incremented and assigned to the hash.
 
-double[] pcm - Pulse Code Modulation data is kept in this array.
+	double[] pcm - Pulse Code Modulation data is kept in this array.
 
-String hash - Generated each hash
+	String hash - Generated each hash
 
-TreeMap<String, SongInfo> hashMap - SongInfo Object consist of songID and the time value of a hash. Generated hash and respective songInfo object for the hash is added to hashMap treemap.
+	TreeMap<String, SongInfo> hashMap - SongInfo Object consist of songID and the time value of a hash. Generated hash and respective songInfo object for the hash is added to hashMap treemap.
 
 Method Explained :
 
-Decode() - After decoding 512 wise samples will be added to buffers.
+	Decode() - After decoding 512 wise samples will be added to buffers.
 
-Time value will be incremented for each each buffer.
+	Time value will be incremented for each each buffer.
 
-Monophonic() - Buffer data will be converted into monophonic data it there are sterophonic data.
-HammingWindow() - Hamming Window is applied to the buffer.
-RealFFT() - Time domain data will be converted into frequency domain data using Furior Transformation and Fast Furior Transformation is used.
-GetPeaks() - For each buffer, frequencies with highest magnitutes will be selected from six frequency ranges.
-GenerateHash() - Using frequencies of four consecutive buffers, one hash is generated.
+	Monophonic() - Buffer data will be converted into monophonic data it there are sterophonic data.
+	HammingWindow() - Hamming Window is applied to the buffer.
+	RealFFT() - Time domain data will be converted into frequency domain data using Furior Transformation and Fast Furior Transformation is used.
+	GetPeaks() - For each buffer, frequencies with highest magnitutes will be selected from six frequency ranges.
+	GenerateHash() - Using frequencies of four consecutive buffers, one hash is generated.
 
-Generated hash and the SongInfo object which consists of songID and time will be added to the hashMap.
+	Generated hash and the SongInfo object which consists of songID and time will be added to the hashMap.
 
-The first peak set will  be removed from the peakList.
+	The first peak set will  be removed from the peakList.
 
-After all hashes are generated hashes will be added to the database.
-
-
+	After all hashes are generated hashes will be added to the database.
 
 
-
-
+_________________________________________________________________________________________________________________________________________________________________________________________________
 
 
 Matching Algorithm - The purpose of this Algorithm is to find songs which is being played in the radio stream. 
 
 Variables Explained :
 
-stream - Broadcasted radio stream
+	stream - Broadcasted radio stream
 
-int songTimes[SONGCOUNT] - When a stream hash is matched with a hash in the ddatabase song, time values of the each hash is stores in this array.
+	int songTimes[SONGCOUNT] - When a stream hash is matched with a hash in the ddatabase song, time values of the each hash is stores in this array.
 
-double regressionScores[SONGCOUNT] - regression scores for songs are kept in this array.
+	double regressionScores[SONGCOUNT] - regression scores for songs are kept in this array.
 
-LinkedList<int[]> slidingWindow - Song matches are found using a sliding window. Data needs for this are kept in this list.
+	LinkedList<int[]> slidingWindow - Song matches are found using a sliding window. Data needs for this are kept in this list.
 
 Method Explained : 
 
-As described in the insertion algorithm hashes are generated for the broadcasted stream.
+	As described in the insertion algorithm hashes are generated for the broadcasted stream.
 
-QueryDB() - For each generated hash, database is searched to find whether there are any match can be found for the generated hash. 
+	QueryDB() - For each generated hash, database is searched to find whether there are any match can be found for the generated hash. 
 
-If any match is match is found time value for the matched hash from the database is stored in the songTimes[] 
+	If any match is match is found time value for the matched hash from the database is stored in the songTimes[] 
 
-SelectMatchesForSong() - select a given song id’s time array from the slidingWindow
+	SelectMatchesForSong() - select a given song id’s time array from the slidingWindow
 
-PickSameGapMatches() - filter only the matches that have the same gap in StreamTime and SongTime
+	PickSameGapMatches() - filter only the matches that have the same gap in StreamTime and SongTime
 
-matchSet - set of (SongTime, StreamTime)
+	matchSet - set of (SongTime, StreamTime)
 
-PickClosetMatches() = Pick points which are closest to y = x (y = SongTIme, x = StreamTime)
+	PickClosetMatches() = Pick points which are closest to y = x (y = SongTIme, x = StreamTime)
 
-GetRegressionScore() - Get the regression score of the selected points.
+	GetRegressionScore() - Get the regression score of the selected points.
 
 
 
