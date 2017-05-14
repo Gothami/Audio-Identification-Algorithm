@@ -2,18 +2,18 @@
 		 mp3File,songID
  2:	 Initialize:
 		 int[] peaks, List<int[]> peakList, int time = 0, String hash, TreeMap<String, SongInfo> hashMap:	 
- 4:	 while not isEnd(mp3File) do
- 5:		 buffer ← Decode(mp3File,512)
- 6:		 time += 1
- 7:		 buffer ← Monophonic(buffer)
- 8:		 buffer ← HammingWindow(buffer)
- 9:		 realfft ← RealFFT(buffer)
-10:		 peaks ← GetPeaks(realfft)
-11:		 peakList.add(peaks)
-12:		 if sizeOf(peakList) = 4 then
-13:			 hash ← GenerateHash(peakList)
-14:			 hashMap.add(hash, new SongInfo(songID, time))
-15:			 peakList.remove(0)
-16:		 end if
-17:	 end while
-18:	 AddtoDB(hashMap)
+ 3:	 while not isEnd(mp3File) do
+ 4:		 buffer ← Decode(mp3File,512)
+ 5:		 time += 1
+ 6:		 buffer ← Monophonic(buffer)
+ 7:		 buffer ← HammingWindow(buffer)
+ 8:		 realfft ← RealFFT(buffer)
+ 9:		 peaks ← GetPeaks(realfft)
+10:		 peakList.add(peaks)
+11:		 if sizeOf(peakList) = 4 then
+12:			 hash ← GenerateHash(peakList)
+13:			 hashMap.add(hash, new SongInfo(songID, time))
+14:			 peakList.remove(0)
+15:		 end if
+16:	 end while
+17:	 AddtoDB(hashMap)

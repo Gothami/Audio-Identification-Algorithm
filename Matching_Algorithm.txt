@@ -21,7 +21,7 @@
 17:					songTimes[songInfo.SongID] ← songInfo.Time
 18:				end for
 19:			end if
-20:			sidingWindow.Add(songTimes)
+20:			slidingWindow.Add(songTimes)
 21:			if sizeOf(slidingWindow) = MAXSLIDINGWINDSIZE then
 22:				slidingWindow.Remove(0)
 23:			end if
