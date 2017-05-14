@@ -31,7 +31,7 @@ Algorithm Logic Explained :
 		pcm, a double array
 		hash, kept as a string and a 
 		hashMap whose purpose are explained above under the section titled "Variables Explained".
-	After initializing, we decode the MP3 File into pcm data. Then until the end of this MP3 File of the song that we are inserting to the system, the following
+	After initializing, we decode the MP3 File into pcm data. Then until the end of this decoded MP3 File of the song that we are inserting to the system, the following
 	process is repeated.
 	
 		Decode() - After decoding 512 wise samples will be added to buffers.
